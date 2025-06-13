@@ -1,7 +1,11 @@
 import React, { useState } from "react";
-import { Text, View, TextInput } from "react-native";
+import { Text, View } from "react-native";
 import { Button, ButtonText } from '@/components/ui/button';
-import { Pressable } from 'react-native';
+import { Input, InputField } from '@/components/ui/input';
+import { Checkbox, CheckboxLabel, CheckboxIcon,  CheckboxIndicator } from '@/components/ui/checkbox';
+import { FormControl, FormControlLabel, FormControlLabelText } from '@/components/ui/form-control';
+import { CheckIcon } from "@/components/ui/icon"
+import { LinearGradient } from "expo-linear-gradient"
 
 export default function Index() {
   const [email, setEmail] = useState("");
@@ -9,6 +13,12 @@ export default function Index() {
   const [stayLoggedIn, setStayLoggedIn] = useState(false);
 
   return (
+      <LinearGradient
+          style={{flex: 1}}
+      colors={["#ff9933", "#ffcc99"]}
+      start={{ x: 1, y: 0 }}
+      end={{ x: 0, y: 1 }}
+      >
     <View
       style={{
         flex: 1,
@@ -16,69 +26,54 @@ export default function Index() {
         alignItems: "center",
         width: '100%',
         padding: 24,
+
       }}
+
     >
       <Text style={{ fontSize: 24, marginBottom: 24 }}>Login</Text>
-      <TextInput
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-        autoCapitalize="none"
-        keyboardType="email-address"
-        style={{
-          width: '100%',
-          borderWidth: 1,
-          borderColor: '#ccc',
-          borderRadius: 8,
-          padding: 12,
-          marginBottom: 16,
-        }}
-      />
-      <TextInput
-        placeholder="Password"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-        style={{
-          width: '100%',
-          borderWidth: 1,
-          borderColor: '#ccc',
-          borderRadius: 8,
-          padding: 12,
-          marginBottom: 16,
-        }}
-      />
-      <Pressable
-        onPress={() => setStayLoggedIn(!stayLoggedIn)}
-        style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 24 }}
-      >
-        <View
-          style={{
-            height: 24,
-            width: 24,
-            borderWidth: 1,
-            borderColor: '#ccc',
-            borderRadius: 4,
-            marginRight: 8,
-            alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: stayLoggedIn ? '#007AFF' : '#fff',
-          }}
-        >
-          {stayLoggedIn && (
-            <View style={{ width: 12, height: 12, backgroundColor: '#fff', borderRadius: 2 }} />
-          )}
-        </View>
-        <Text>Stay logged in</Text>
-      </Pressable>
+      <FormControl className="w-full mb-4">
+        <FormControlLabel>
+          <FormControlLabelText>Email</FormControlLabelText>
+        </FormControlLabel>
+        <Input size="xl">
+          <InputField
+            placeholder="Email"
+            value={email}
+            onChangeText={setEmail}
+            autoCapitalize="none"
+            keyboardType="email-address"
+          />
+        </Input>
+      </FormControl>
+      <FormControl className="w-full mb-4">
+        <FormControlLabel>
+          <FormControlLabelText>Password</FormControlLabelText>
+        </FormControlLabel>
+        <Input size="xl">
+          <InputField
+            placeholder="Password"
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry
+          />
+        </Input>
+      </FormControl>
+        <Checkbox value={"true"} size="lg" isInvalid={false} isDisabled={false}>
+            <CheckboxIndicator>
+                <CheckboxIcon as={CheckIcon} />
+            </CheckboxIndicator>
+            <CheckboxLabel>Label</CheckboxLabel>
+        </Checkbox>
       <Button
         variant={"solid"}
         size={"xl"}
-        className={"w-full p-6 min-h-20"}
-        action={"positive"}
+        className={"w-full "}
+        action={"primary"}
+        style={{height: 50}}
       >
         <ButtonText>Login</ButtonText>
       </Button>
     </View>
+      </LinearGradient>
   );
 }
